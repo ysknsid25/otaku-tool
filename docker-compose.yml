@@ -1,0 +1,32 @@
+version: "3.9"
+services:
+    app:
+        build: ./docker/php
+        volumes:
+            - ./framework:/framework
+    web:
+        image: nginx:1.20-alpine
+        ports:
+            - 8080:80
+        volumes:
+            - ./framework:/framework
+            - ./docker/nginx/default.conf:/etc/nginx/conf.d/default.conf
+        working_dir: /framework
+    db:
+        build: ./docker/mysql
+        ports:
+            - 13306:3306
+        volumes:
+            - db-store:/var/lib/mysql
+    mailhog:
+        image: mailhog/mailhog
+        ports:
+            - "8025:8025"
+        environment:
+            MH_STORAGE: maildir
+            MH_MAILDIR_PATH: /tmp
+        volumes:
+            - ./mailhog:/tmp
+
+volumes:
+    db-store:
