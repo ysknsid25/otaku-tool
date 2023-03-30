@@ -18,15 +18,16 @@ services:
             - 13306:3306
         volumes:
             - db-store:/var/lib/mysql
-    mailhog:
-        image: mailhog/mailhog
+    mailpit:
+        image: axllent/mailpit
+        tty: true
         ports:
-            - "8025:8025"
+          - "8025:8025"
+          - "1025:1025"
         environment:
-            MH_STORAGE: maildir
-            MH_MAILDIR_PATH: /tmp
+          MP_DATA_FILE: /home/mailpit/mails
         volumes:
-            - ./mailhog:/tmp
+          - ./mails/mailpit:/home/mailpit/mails
 
 volumes:
     db-store:
