@@ -6,7 +6,7 @@
 
 # Author
 
-(Kanon)[https://www.resume.id/kanon1225]
+[Kanon](https://www.resume.id/kanon1225)
 
 # 初期準備
 
