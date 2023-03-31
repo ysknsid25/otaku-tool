@@ -2,11 +2,11 @@
 
 ## 利用技術
 
-Laravel 10
-MySQL 8
-Mailpit
-nginx
-vite
+-   Laravel 10
+-   MySQL 8
+-   Mailpit
+-   nginx
+-   vite
 
 ## PHP ライブラリの install
 
