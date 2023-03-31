@@ -1,0 +1,21 @@
+{
+    "recommendations": [
+        "xdebug.php-debug",
+        "bmewburn.vscode-intelephense-client",
+        "onecentlin.laravel5-snippets",
+        "aaron-bond.better-comments",
+        "ms-azuretools.vscode-docker",
+        "mikestead.dotenv",
+        "oderwat.indent-rainbow",
+        "ms-ceintl.vscode-language-pack-ja",
+        "shufo.vscode-blade-formatter",
+        "ryannaddy.laravel-artisan",
+        "onecentlin.laravel-blade",
+        "amiralizadeh9480.laravel-extra-intellisense",
+        "codingyu.laravel-goto-view",
+        "pkief.markdown-checkbox",
+        "robberphex.php-debug",
+        "neilbrayfield.php-docblocker",
+        "esbenp.prettier-vscode"
+    ]
+}
