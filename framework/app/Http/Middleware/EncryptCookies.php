@@ -12,6 +12,8 @@ class EncryptCookies extends Middleware
      * @var array<int, string>
      */
     protected $except = [
-        //
+        //! Xdebugでエラーを回避するため
+        //! https://programming.sincoston.com/laravel6-xdebug-payload-invalid/
+        'JSESSIONID'
     ];
 }
