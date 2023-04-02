@@ -35,11 +35,11 @@ jobs:
                   key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
                   restore-keys: |
                       ${{ runner.os }}-composer-
+            - name: Change Directory
+              run: cd /home/runner/work/otaku-tool/otaku-tool/framework
             - name: composer install
               if: steps.cache.outputs.cache-hit != 'true'
-              run: | 
-                ls -l
-                composer install -n --prefer-dist
+              run: composer install -n --prefer-dist
             - name: copy .env
               run: cp .env.ci .env
             - name: generate key
