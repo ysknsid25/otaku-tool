@@ -37,7 +37,9 @@ jobs:
                       ${{ runner.os }}-composer-
             - name: composer install
               if: steps.cache.outputs.cache-hit != 'true'
-              run: composer install -n --prefer-dist
+              run: | 
+                ls -l
+                composer install -n --prefer-dist
             - name: copy .env
               run: cp .env.ci .env
             - name: generate key
