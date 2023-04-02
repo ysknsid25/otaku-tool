@@ -1,12 +1,9 @@
 name: PHP-UnitTest
 
 on:
-  push:
-    branches-ignore:
-      - master
-  pull_request:
-    branches-ignore:
-      - master
+    push:
+        branches-ignore:
+            - master
 
 jobs:
     test:
