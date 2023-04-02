@@ -35,16 +35,18 @@ jobs:
                   key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
                   restore-keys: |
                       ${{ runner.os }}-composer-
-            - name: Change Directory
-              run: cd /home/runner/work/otaku-tool/otaku-tool/framework
             - name: composer install
               if: steps.cache.outputs.cache-hit != 'true'
               run: composer install
+              working-directory: /home/runner/work/otaku-tool/otaku-tool/framework
             - name: copy .env
-              run: cp .env.ci .env
+              run: cp /home/runner/work/otaku-tool/otaku-tool/framework/.env.ci /home/runner/work/otaku-tool/otaku-tool/framework/.env
             - name: generate key
               run: php artisan key:generate
+              working-directory: /home/runner/work/otaku-tool/otaku-tool/framework
             - name: migrate
               run: php artisan migrate
+              working-directory: /home/runner/work/otaku-tool/otaku-tool/framework
             - name: unit test
               run: ./vendor/bin/phpunit
+              working-directory: /home/runner/work/otaku-tool/otaku-tool/framework
