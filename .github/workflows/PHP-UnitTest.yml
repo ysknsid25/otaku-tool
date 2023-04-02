@@ -54,6 +54,9 @@ jobs:
             - name: Install JS dependencies
               run: npm install
               working-directory: /home/runner/work/otaku-tool/otaku-tool/framework
+            - name: npm build
+              run: npm run build
+              working-directory: /home/runner/work/otaku-tool/otaku-tool/framework
             - name: unit test
               run: php artisan test
               working-directory: /home/runner/work/otaku-tool/otaku-tool/framework
