@@ -48,5 +48,5 @@ jobs:
               run: php artisan migrate
               working-directory: /home/runner/work/otaku-tool/otaku-tool/framework
             - name: unit test
-              run: ./vendor/bin/phpunit
+              run: php artisan test
               working-directory: /home/runner/work/otaku-tool/otaku-tool/framework
