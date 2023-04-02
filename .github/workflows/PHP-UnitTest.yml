@@ -1,0 +1,52 @@
+name: PHP-UnitTest
+
+on: push
+
+jobs:
+    test:
+        name: phpunit test
+        runs-on: ubuntu-latest
+
+        services:
+            mysql:
+                image: mysql:8.0.19
+                ports:
+                    - 3306:3306
+                options: --health-cmd "mysqladmin ping -h localhost" --health-interval 20s --health-timeout 10s --health-retries 10
+                env:
+                    MYSQL_ROOT_PASSWORD: secret
+                    MYSQL_DATABASE: laravel_local
+
+        env:
+            DB_CONNECTION: mysql
+            DB_HOST: 127.0.0.1
+            DB_PORT: 3306
+            DB_DATABASE: laravel_local
+            DB_USERNAME: root
+            DB_PASSWORD: secret
+
+        steps:
+            - uses: actions/checkout@v2
+            - name: cache vendor
+              id: cache
+              uses: actions/cache@v1
+              with:
+                  path: ./vendor
+                  key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
+                  restore-keys: |
+                      ${{ runner.os }}-composer-
+            - name: composer install
+              if: steps.cache.outputs.cache-hit != 'true'
+              run: composer install
+              working-directory: /home/runner/work/otaku-tool/otaku-tool/framework
+            - name: copy .env
+              run: cp /home/runner/work/otaku-tool/otaku-tool/framework/.env.ci /home/runner/work/otaku-tool/otaku-tool/framework/.env
+            - name: generate key
+              run: php artisan key:generate
+              working-directory: /home/runner/work/otaku-tool/otaku-tool/framework
+            - name: migrate
+              run: php artisan migrate
+              working-directory: /home/runner/work/otaku-tool/otaku-tool/framework
+            - name: unit test
+              run: ./vendor/bin/phpunit
+              working-directory: /home/runner/work/otaku-tool/otaku-tool/framework
