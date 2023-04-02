@@ -47,6 +47,13 @@ jobs:
             - name: migrate
               run: php artisan migrate
               working-directory: /home/runner/work/otaku-tool/otaku-tool/framework
+            - name: SetUp Node
+              uses: actions/setup-node@v3
+              with:
+                  node-version: "18"
+            - name: Install JS dependencies
+              run: npm install
+              working-directory: /home/runner/work/otaku-tool/otaku-tool/framework
             - name: unit test
               run: php artisan test
               working-directory: /home/runner/work/otaku-tool/otaku-tool/framework
