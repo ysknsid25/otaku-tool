@@ -24,11 +24,3 @@ jobs:
               run: |
                   python -m unittest discover test/agscraiping -v
               working-directory: /home/runner/work/otaku-tool/otaku-tool/batch
-            - name: Run unittest util
-              env:
-                  # メール送信の検証用のSendGridのAPI KEY
-                  USER: github
-                  SENDGRID_KEY: ${{ secrets.SENDGRID_KEY }}
-              run: |
-                  python -m unittest discover test/util -v
-              working-directory: /home/runner/work/otaku-tool/otaku-tool/batch
