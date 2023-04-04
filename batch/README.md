@@ -33,6 +33,7 @@ pip3 install functions-framework
 このコマンドを実行する。
 
 ```
+cd ./batch
 functions-framework --target=<関数名>
 ```
 

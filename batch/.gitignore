@@ -2,5 +2,6 @@ __pycache__
 env
 key
 .env.yaml
+.env.yaml.prod
 .gcloudignore
 deploy.sh
