@@ -6,13 +6,13 @@ from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 from email.mime.application import MIMEApplication
 import os
+from util import batchutil
 
 def sendMail(notify_info):
   """notify_info
   メール送信を行う
   """
-  runtime_user=os.environ["USER"]
-  if runtime_user=="agnotify" or runtime_user=="github":
+  if batchutil.is_runtime_cloudfunctions() or batchutil.is_runtime_githubactions():
     apikey=secretmanager.get_sendgrid_apikey('PROJECT_ID','SG_SECRET_ID','SG_VERSION_ID')
     message = Mail()
     message.to=To(notify_info["to"])

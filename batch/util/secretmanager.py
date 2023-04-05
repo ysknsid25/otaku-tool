@@ -4,6 +4,7 @@ import ast
 import os
 import gspread
 from oauth2client.service_account import ServiceAccountCredentials
+from util import batchutil
 
 def get_credential(project_id,secret_id,version_id):
     """
@@ -28,8 +29,7 @@ def get_spreadsheet_auth(project_id_key,secret_id_key,version_id_key,local_secre
     # 利用する API を指定する
     api_scope = ['https://www.googleapis.com/auth/spreadsheets',
                 'https://www.googleapis.com/auth/drive']
-    runtime_user=os.environ["USER"]
-    if runtime_user=="agnotify":
+    if batchutil.is_runtime_cloudfunctions():
         project_id=os.getenv(project_id_key)
         secret_id=os.getenv(secret_id_key)
         version_id=os.getenv(version_id_key)
@@ -46,16 +46,12 @@ def get_sendgrid_apikey(project_id_key,secret_id_key,version_id_key):
     """get_sendgrid_apikey
     メール送信を行うためにSendGridのAPIキーを取得する
     """
-    runtime_user=os.environ["USER"]
-    if runtime_user=="agnotify":
+    key = ""
+    if batchutil.is_runtime_cloudfunctions():
         project_id=os.getenv(project_id_key)
         secret_id=os.getenv(secret_id_key)
         version_id=os.getenv(version_id_key)
-        key=get_credential(project_id,secret_id,version_id)
-    elif runtime_user=="github":
-        key=os.environ["SENDGRID_KEY"]
-    else:
-        f=open("./key/sendgrid.key","r")
-        key=f.read()
-        f.close()
+        return get_credential(project_id,secret_id,version_id)
+    if batchutil.is_runtime_githubactions():
+        return os.environ["SENDGRID_KEY"]
     return key
