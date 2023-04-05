@@ -4,3 +4,4 @@ gspread==5.7.2
 google-cloud-secret-manager==2.13.0
 sendgrid==6.9.7
 mysql-connector-python==8.0.32
+PyYAML==6.0
