@@ -1,55 +1,56 @@
-# 構成
+# 概要
 
-[システム構成図](https://drive.google.com/file/d/1EkEkk8OExyIm98BaXlKc7tN9hsu7Ay81/view?usp=sharing)
+このプロジェクトを始める以前の A&G 番組情報取得プログラムと、メール配信プログラムは Google Cloud Functions で稼働していました。
 
-# Python ランタイム
+ユーザーインターフェースについては Google サービス上で稼働させていますが、バッチプログラムについては引き続き Google Cloud Functions にて稼働させる前提で作成する。
 
-[Google の環境構築手順](https://cloud.google.com/python/docs/setup?hl=ja)を参考に構築。
+# 技術構成
 
-# 関数のデプロイ(http)
+素の Python 3.10 を利用。
 
-```
-gcloud functions deploy get_agonair_info --region=asia-northeast2 --runtime python310 --service-account ag-onairinfo-writer@adnag-371706.iam.gserviceaccount.com --env-vars-file .env.yaml --trigger-http
-```
+# 環境構築
 
-# 関数のデプロイ(pub/sub)
+## 依存ライブラリのインストール
 
-```
-gcloud functions deploy get_agonair_info_pubsub --region=asia-northeast2 --trigger-event=providers/cloud.pubsub/eventTypes/topic.publish --trigger-resource=agnotify-functions-trigger --runtime python310 --service-account ag-onairinfo-writer@adnag-371706.iam.gserviceaccount.com --env-vars-file .env.yaml
-```
-
-# Cloud Functions を定期実行する方法
-
-[このサイト](https://dev.classmethod.jp/articles/try-cloud-functions-scheduler-pubsub/)が参考になった
-
-# ローカルでの実行
-
-最初だけこれを入れる
+requirements.txt のライブラリをインストール。
 
 ```
-pip3 install functions-framework
+cd batch
+pip install -r requirements.txt
 ```
 
-このコマンドを実行する。
+## 設定ファイルの用意
+
+.env.yaml.example を.env.yaml としてコピーする。
+
+docker-compose.yml を変更していない限り、そのままコピーするだけで OK。
+
+なお、データベースは Laravel の Docker と共有しているため、プロジェクトのトップディレクトリで docker-compose しておく必要がある。
+
+## エミュレーターの用意
+
+Cloud Functions エミュレーターを利用してローカルでテストを行う。
+
+基本的には main.py の test 関数が http 関数となっているので、その中にプログラムを記述する。
+
+テストは以下のコマンドから実行する。
 
 ```
-cd ./batch
+cd batch
 functions-framework --target=<関数名>
 ```
 
-エミュレートが始まるので、ここにアクセスする。
+ブラウザからアクセスすることで実行される。
 
 ```
-http://localhost:8080
+http://localhost:8080/<関数名>
 ```
 
 # テストコードの実行
 
-コンテナの中に入ってこれを実行。
-テスト対象のフォルダが増えた場合、このシェルファイルにフォルダを追加する。
+テスト対象のフォルダが増えた場合、[test.sh](./test.sh)にフォルダを追加する。
 
 ```
-cd /var/dockerpython
 sh test/test.sh
 ```
 
@@ -64,22 +65,3 @@ python -m unittest discover test -v
 ```
 python -m unittest test.test -v
 ```
-
-# CI/CD
-
-github actions を利用する。
-[CD についてはこの記事](https://blog.ojisan.io/gha-gcloud/)を参考。
-このため、サービスアカウント用の鍵情報などは github Secret に保存している。
-けど、本当は workload identity を使う方が良い。
-使わない場合、アカウント情報が IAM と github Actions(こっちは秘密鍵とかの情報)の二つに分散してしまう。
-使う場合は、workload Identity に認証情報を聞きに行けばいいので、GCP 内に情報を止めることができる。
-
-github secrets に保存する内容は base64 でエンコードされていないとダメなので、エンコードしてあげる。
-
-```
-base64 -i adnag-371706-2874acbb8113.json -o adnag-371706-2874acbb8113_base64.txt
-```
-
-## サービスアカウントの対応表
-
-[対応表](https://mokicks.hatenablog.com/entry/2018/09/13/014615)
