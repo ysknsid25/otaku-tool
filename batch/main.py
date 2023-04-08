@@ -1,10 +1,9 @@
 from flask import escape
 import functions_framework
 from agscraiping import scraiping
-from agscraiping import spreadsheet
 from agscraiping import mysql
-from util import sendmail
-from util import weatherinfo
+from agscraiping import sendmail
+from util import mysql_manager
 import requests
 
 spurl="https://docs.google.com/spreadsheets/d/1u8Css_p_vk6UY65flm6e0aL6IPciysp8l2hXWHB6058/edit#gid=0"
@@ -33,17 +32,14 @@ def ag_onair_info_send_mail(event, context):
   Returns:
       メール送信が成功したら、202
   """
-  notify_info=spreadsheet.get_onair_info(spurl)
-  locale_ids=weatherinfo.get_locale_ids()
-  w_info=weatherinfo.get_weather_info(locale_ids)
-  messages=weatherinfo.get_mail_message(w_info)
-  notify_info["text"]+="\r\n \r\n \r\n " + "\r\n ".join(messages)
-  notify_info["html"]+="<br /><br /><br /> " + "<br />".join(messages)
-  status=sendmail.sendMail(notify_info)
-  return str(status)
+  sendmail.send_onair_info()
+  return "fine"
 
 @functions_framework.http
 def test(request):
   out="It works!"
+  con = mysql_manager.get_connection()
+  print(con)
+  mysql_manager.connection_close(con)
   print(out)
   return out

@@ -26,7 +26,6 @@ def get_connection():
         password=config[MYSQL_PASSWORD_KEY] 
         database=config[MYSQL_DATABASE_KEY] 
         port=config[MYSQL_PORT_KEY]
-    print(host)
     connection = mysql.connector.connect(host=host,user=user,password=password,database=database, port=port)
     return connection
 

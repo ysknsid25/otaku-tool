@@ -4,13 +4,13 @@ from util import secretmanager
 import smtplib
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
-from email.mime.application import MIMEApplication
 import os
 from util import batchutil
 
 def sendMail(notify_info):
   """notify_info
   メール送信を行う
+  本番環境とGitHub Actionsの場合はSendGridを使用し、それ以外の場合はmailpitを使用する
   """
   if batchutil.is_runtime_cloudfunctions() or batchutil.is_runtime_githubactions():
     apikey=secretmanager.get_sendgrid_apikey('PROJECT_ID','SG_SECRET_ID','SG_VERSION_ID')

@@ -1,7 +1,11 @@
 import datetime
 from util import mysql_manager
+from util import batchutil
 
 def write_mysql_database(onair_info_weekday:list):
+    """
+    A&Gから取得した番組情報をMySQLに登録する
+    """
     #接続
     con = mysql_manager.get_connection()
     cur = con.cursor()
@@ -65,3 +69,60 @@ def write_mysql_database(onair_info_weekday:list):
     #切断
     cur.close()
     mysql_manager.connection_close(con)
+
+def get_notify_target_users()->list:
+    """
+    メール送信にあたって通知対象のユーザー情報を取得する
+    """
+    users=[]
+    con = mysql_manager.get_connection()
+    cur = con.cursor()
+    cur.execute("SELECT id, email FROM users WHERE email_verified_at is not null")
+    rows = cur.fetchall()
+    for row in rows:
+        userInfo={}
+        userInfo["id"]=row[0]
+        userInfo["email"]=row[1]
+        users.append(userInfo)
+    cur.close()
+    mysql_manager.connection_close(con)
+    return users
+
+def get_notify_programs(user_id: int, weekday: int)->list:
+    """
+    メール送信にあたってユーザーの、その曜日の通知対象の番組情報を取得する
+    """
+    programs=[]
+    con = mysql_manager.get_connection()
+    cur = con.cursor()
+    cur.execute("SELECT programs.* FROM notifyprograms INNER JOIN programs ON notifyprograms.programs_id = programs.id AND notifyprograms.users_id = %s AND programs.weekday = %s", (user_id, weekday))
+    rows = cur.fetchall()
+    for row in rows:
+        betinTime = batchutil.fomat_int_time_to_str(row[2])
+        endTime = batchutil.fomat_int_time_to_str(row[3])
+        programInfo={}
+        programInfo["id"]=row[0]
+        programInfo["programnm"]=row[1]
+        programInfo["onairTime"]=betinTime + "～" + endTime
+        programs.append(programInfo)
+    cur.close()
+    mysql_manager.connection_close(con)
+    return programs
+
+def get_notify_actors(program_id: int)->list:
+    """
+    メール送信にあたって通知対象の声優情報を取得する
+    """
+    actors=[]
+    con = mysql_manager.get_connection()
+    cur = con.cursor()
+    cur.execute("SELECT actors.* FROM personalities INNER JOIN actors ON personalities.actors_id = actors.id AND personalities.programs_id = %s", (program_id,))
+    rows = cur.fetchall()
+    for row in rows:
+        actorInfo={}
+        actorInfo["id"]=row[0]
+        actorInfo["name"]=row[1]
+        actors.append(actorInfo)
+    cur.close()
+    mysql_manager.connection_close(con)
+    return actors
