@@ -1,4 +1,5 @@
 import datetime
+from util import batchutil
 
 def get_onair_info(lines: str)->list:
   """get_onair_info
@@ -52,7 +53,9 @@ def get_time(line:str, info:dict)->dict:
   times=get_html_content(line)
   split_times=times.split("–")
   begin=split_times[0].strip()
+  begin=batchutil.replace_time_to_str(begin)
   end=split_times[1].strip()
+  end=batchutil.replace_time_to_str(end)
   info["begin"]=begin
   info["end"]=end
   return info

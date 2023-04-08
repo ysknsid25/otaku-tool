@@ -34,7 +34,7 @@ class Test(unittest.TestCase):
     line='<h3 class="dailyProgram-itemHeaderTime">9:00 – 9:30</h3>'
     info={}
     sut.get_time(line, info)
-    actual=info["begin"]=="9:00" and info["end"]=="9:30"
+    actual=info["begin"]=="900" and info["end"]=="930"
     expected=True
     self.assertEqual(expected,actual)
 

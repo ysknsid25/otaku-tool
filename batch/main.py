@@ -2,6 +2,7 @@ from flask import escape
 import functions_framework
 from agscraiping import scraiping
 from agscraiping import spreadsheet
+from agscraiping import mysql
 from util import sendmail
 from util import weatherinfo
 import requests
@@ -45,4 +46,17 @@ def ag_onair_info_send_mail(event, context):
 def test(request):
   out="It works!"
   print(out)
+  onair_info=[{} for i in range(7)]
+  _BASE_URL = "https://www.joqr.co.jp/qr/agdailyprogram/?date="
+  onairinfo_dates=scraiping.get_onairinfo_dates()
+  #print(onairinfo_dates)
+  for weekday in range(len(onairinfo_dates)):
+    target_date=onairinfo_dates[weekday]
+    url=_BASE_URL+target_date
+    response=requests.get(url)
+    response.encoding = response.apparent_encoding
+    lines=response.text.splitlines()
+    onair_info[weekday]=scraiping.get_onair_info(lines)
+  #print(onair_info)
+  mysql.write_mysql_database(onair_info)
   return out
