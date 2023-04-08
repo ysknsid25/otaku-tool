@@ -1,0 +1,34 @@
+name: Python-UnitTest
+on:
+    workflow_dispatch:
+    push:
+        branches-ignore:
+            - master
+
+jobs:
+    unittest:
+        runs-on: ubuntu-latest
+        steps:
+            # リポジトリをチェックアウト
+            - name: Checkout
+              uses: actions/checkout@v3
+            # Pythonの環境をセットアップ
+            - name: Set up Python 3.7
+              uses: actions/setup-python@v4
+              with:
+                  python-version: 3.7
+            - name: Install dependencies
+              run: pip install -r batch/requirements.txt
+            # unittest
+            - name: Run unittest agscraiping
+              run: |
+                  python -m unittest discover test/agscraiping -v
+              working-directory: /home/runner/work/otaku-tool/otaku-tool/batch
+            - name: Run unittest util
+              env:
+                  # メール送信の検証用のSendGridのAPI KEY
+                  USER: github
+                  SENDGRID_KEY: ${{ secrets.SENDGRID_KEY }}
+              run: |
+                  python -m unittest discover test/util -v
+              working-directory: /home/runner/work/otaku-tool/otaku-tool/batch
