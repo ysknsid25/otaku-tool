@@ -1,3 +1,4 @@
+import datetime
 from util import mysql_manager
 
 def write_mysql_database(onair_info_weekday:list):
@@ -25,7 +26,7 @@ def write_mysql_database(onair_info_weekday:list):
             cur.execute("SELECT id FROM programs WHERE weekday = %s AND begintime = %s AND endtime = %s AND programnm = %s", (weekday, onair['begin'], onair['end'], onair['title']))
             row = cur.fetchone()
             if row is None:
-                cur.execute("INSERT INTO programs (weekday, begintime, endtime, programnm) VALUES (%s, %s, %s, %s)", (weekday, onair['begin'], onair['end'], onair['title']))
+                cur.execute("INSERT INTO programs (weekday, begintime, endtime, programnm, created_at, updated_at) VALUES (%s, %s, %s, %s, %s, %s)", (weekday, onair['begin'], onair['end'], onair['title'], datetime.datetime.now(), datetime.datetime.now()))
     con.commit()
 
     #声優情報を問い合わせる。存在しない場合は登録
@@ -36,7 +37,7 @@ def write_mysql_database(onair_info_weekday:list):
                 cur.execute("SELECT id FROM actors WHERE name = %s", (personality,))
                 row = cur.fetchone()
                 if row is None:
-                    cur.execute("INSERT INTO actors (name) VALUES (%s)", (personality,))
+                    cur.execute("INSERT INTO actors (name, created_at, updated_at) VALUES (%s, %s, %s)", (personality, datetime.datetime.now(), datetime.datetime.now()))
     con.commit()
 
     #パーソナリティ情報を作成する。
@@ -58,7 +59,7 @@ def write_mysql_database(onair_info_weekday:list):
                 cur.execute("SELECT id FROM personalities WHERE programs_id = %s AND actors_id = %s", (programs_id, actors_id))
                 row = cur.fetchone()
                 if row is None:
-                    cur.execute("INSERT INTO personalities (programs_id, actors_id) VALUES (%s, %s)", (programs_id, actors_id))
+                    cur.execute("INSERT INTO personalities (programs_id, actors_id, created_at, updated_at) VALUES (%s, %s, %s, %s)", (programs_id, actors_id, datetime.datetime.now(), datetime.datetime.now()))
     con.commit()
 
     #切断
