@@ -25,7 +25,7 @@ def get_agonair_info_pubsub(event, context):
     lines=response.text.splitlines()
     onair_info[weekday]=scraiping.get_onair_info(lines)
   #print(onair_info)
-  spreadsheet.write_spread_sheet(onair_info,spurl)
+  mysql.write_mysql_database(onair_info)
   return "Success"
 
 def ag_onair_info_send_mail(event, context):
@@ -46,17 +46,4 @@ def ag_onair_info_send_mail(event, context):
 def test(request):
   out="It works!"
   print(out)
-  onair_info=[{} for i in range(7)]
-  _BASE_URL = "https://www.joqr.co.jp/qr/agdailyprogram/?date="
-  onairinfo_dates=scraiping.get_onairinfo_dates()
-  #print(onairinfo_dates)
-  for weekday in range(len(onairinfo_dates)):
-    target_date=onairinfo_dates[weekday]
-    url=_BASE_URL+target_date
-    response=requests.get(url)
-    response.encoding = response.apparent_encoding
-    lines=response.text.splitlines()
-    onair_info[weekday]=scraiping.get_onair_info(lines)
-  #print(onair_info)
-  mysql.write_mysql_database(onair_info)
   return out
