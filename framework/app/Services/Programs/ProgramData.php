@@ -12,6 +12,7 @@ class ProgramData
     private $onAirTime = "";
     private $personalities = array();
     private $onAirTimeService = null;
+    private $isNofityTarget = false;
 
     public function __construct()
     {
@@ -66,5 +67,15 @@ class ProgramData
     public function getPersonalities()
     {
         return join(', ', $this->personalities);
+    }
+
+    public function setIsNotifyTarget($isNotifyTarget)
+    {
+        $this->isNofityTarget = $isNotifyTarget;
+    }
+
+    public function isNotifyTarget()
+    {
+        return $this->isNofityTarget;
     }
 }

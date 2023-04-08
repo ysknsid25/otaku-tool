@@ -33,6 +33,7 @@ Route::middleware('auth')->group(function () {
 Route::middleware('auth')->group(function () {
     Route::get('/programs', [ProgramController::class, 'index'])->name('programs.index');
     Route::post('/programs', [ProgramController::class, 'show'])->name('programs.show');
+    Route::patch('/programs', [ProgramController::class, 'update'])->name('programs.update');
 });
 
 require __DIR__ . '/auth.php';

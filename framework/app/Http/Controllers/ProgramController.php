@@ -7,18 +7,31 @@ use App\Services\Programs\ProgramService;
 
 class ProgramController extends Controller
 {
-    public function index(ProgramService $programService)
+    public function index(Request $request, ProgramService $programService)
     {
         $today = $programService->getTargetDay();
-        $programs = $programService->getTodaysPrograms($today);
-        $weekDays = $programService->getWeekDays();
-        return view('programs.index', ['programs' => $programs, 'weekDays' => $weekDays, 'targetDay' => strVal($today)]);
+        return $this->returnView($request, $programService, $today);
     }
 
     public function show(Request $request, ProgramService $programService)
     {
-        $targetDay = $request->input('targetDay');
-        $programs = $programService->getTodaysPrograms($targetDay);
+        $selectedDay = $request->input('targetDay');
+        return $this->returnView($request, $programService, $selectedDay);
+    }
+
+    public function update(Request $request, ProgramService $programService)
+    {
+        $programids = $request->input('programs', []);
+        $targetDay = $request->input('hidTargetDay');
+        $userid = $request->user()->id;
+        $programService->notifyTargetFirstOrCreate($userid, $programids, $targetDay);
+        return $this->returnView($request, $programService, $targetDay);
+    }
+
+    private function returnView(Request $request, ProgramService $programService, $targetDay)
+    {
+        $userid = $request->user()->id;
+        $programs = $programService->getTodaysPrograms($targetDay, $userid);
         $weekDays = $programService->getWeekDays();
         return view('programs.index', ['programs' => $programs, 'weekDays' => $weekDays, 'targetDay' => strVal($targetDay)]);
     }

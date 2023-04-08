@@ -5,7 +5,6 @@
         </h2>
     </x-slot>
 
-
     <div class="py-6">
         <form method="post" action="{{ route('programs.show') }}" class="mb-6">
             @csrf
@@ -29,27 +28,39 @@
                 </div>
             </div>
         </form>
-        @foreach ($programs as $program)
-            <div class="max-w-7xl mx-auto py-2 sm:px-6 lg:px-8">
-                <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                    <div class="p-6 text-gray-900">
-                        <div class="flex items-center">
-                            <input id="default-checkbox-{{ $program->getId() }}" type="checkbox" name="program[]"
-                                value="{{ $program->getId() }}"
-                                class="shrink-0 mt-0.5 border-gray-200 rounded text-blue-600 pointer-events-none focus:ring-blue-500 dark:bg-gray-800 dark:border-gray-700 dark:checked:bg-blue-500 dark:checked:border-blue-500 dark:focus:ring-offset-gray-800">
-                            <label for="default-checkbox-{{ $program->getId() }}">
-                                <div class="flex flex-col ml-4">
-                                    <div class="text-lg font-medium text-gray-900">
-                                        {{ $program->getPrgoramNm() }}
+        <form method="post" action="{{ route('programs.update') }}" class="mb-6">
+            @csrf
+            @method('patch')
+            @foreach ($programs as $program)
+                <div class="max-w-7xl mx-auto py-2 sm:px-6 lg:px-8">
+                    <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+                        <div class="p-6 text-gray-900">
+                            <div class="flex items-center">
+                                <input id="default-checkbox-{{ $program->getId() }}" type="checkbox" name="programs[]"
+                                    value="{{ $program->getId() }}" {{ $program->isNotifyTarget() ? 'checked' : '' }}
+                                    class="shrink-0 mt-0.5 border-gray-200 rounded text-blue-600 pointer-events-none focus:ring-blue-500 dark:bg-gray-800 dark:border-gray-700 dark:checked:bg-blue-500 dark:checked:border-blue-500 dark:focus:ring-offset-gray-800">
+                                <label for="default-checkbox-{{ $program->getId() }}">
+                                    <div class="flex flex-col ml-4">
+                                        <div class="text-lg font-medium text-gray-900">
+                                            {{ $program->getPrgoramNm() }}
+                                        </div>
+                                        <div class="text-sm">{{ $program->getPersonalities() }}</div>
+                                        <div class="text-sm">{{ $program->getOnAirTime() }}</div>
                                     </div>
-                                    <div class="text-sm">{{ $program->getPersonalities() }}</div>
-                                    <div class="text-sm">{{ $program->getOnAirTime() }}</div>
-                                </div>
-                            </label>
+                                </label>
+                            </div>
                         </div>
                     </div>
                 </div>
+            @endforeach
+            <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 mt-6">
+                <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+                    <div class="p-6 text-gray-900">
+                        <input type="hidden" name="hidTargetDay" value="{{ $targetDay }}">
+                        <x-primary-button>{{ __('Save') }}</x-primary-button>
+                    </div>
+                </div>
             </div>
-        @endforeach
+        </form>
     </div>
 </x-app-layout>
