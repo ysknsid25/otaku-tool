@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ProgramController;
+use App\Models\Program;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -28,4 +30,10 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-require __DIR__.'/auth.php';
+Route::middleware('auth')->group(function () {
+    Route::get('/programs', [ProgramController::class, 'index'])->name('programs.index');
+    Route::post('/programs', [ProgramController::class, 'show'])->name('programs.show');
+    Route::patch('/programs', [ProgramController::class, 'update'])->name('programs.update');
+});
+
+require __DIR__ . '/auth.php';

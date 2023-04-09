@@ -8,15 +8,18 @@
 
 [Kanon](https://www.resume.id/kanon1225)
 
-# 初期準備
+# 初期準備(Web)
 
 ## 0. 利用技術
 
 -   Laravel 10
+-   PHP 8
 -   MySQL 8
--   Mailpit
+-   mailpit
 -   nginx
 -   vite
+-   SendGrid
+-   Google Cloud Functions
 
 ## 1. PHP ライブラリの install
 
@@ -118,6 +121,12 @@ launch.json は以下のように対応する。
             }
         },
 ```
+
+# バッチ環境
+
+このプロジェクトの前身で稼働していたプログラムを、当プロジェクトにマージする形で用意しています。
+
+バッチ環境については、別途[README](./batch/README.md)をご参照ください。
 
 # コントリビューション
 
