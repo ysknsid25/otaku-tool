@@ -6,8 +6,7 @@
 
 登録した番組情報のうち、その日配信されている番組を、毎日一定の時間にメールでまとめてお知らせすることができます。
 
-![image](https://user-images.githubusercontent.com/44870505/230750506-9147165c-66eb-4d38-9b04-efe3f91cec46.png)
-
+![image](https://user-images.githubusercontent.com/44870505/230750555-91c01aba-10a4-460a-a6d1-806a5a2a15a5.png)
 
 # Author
 
