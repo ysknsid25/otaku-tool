@@ -1,10 +1,13 @@
 # Otaku Tool
 
-![image](https://user-images.githubusercontent.com/44870505/230749689-92e0a4dd-f59c-4b9a-8e18-c6e34e12fce1.png)
-
 超 A&G の放送情報を声優もしくは番組情報から検索し、通知対象を登録します。
 
+![image](https://user-images.githubusercontent.com/44870505/230750519-4cf92524-fd06-4aca-a302-cd3e37162fcf.png)
+
 登録した番組情報のうち、その日配信されている番組を、毎日一定の時間にメールでまとめてお知らせすることができます。
+
+![image](https://user-images.githubusercontent.com/44870505/230750506-9147165c-66eb-4d38-9b04-efe3f91cec46.png)
+
 
 # Author
 
