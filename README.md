@@ -1,6 +1,6 @@
-![image](https://user-images.githubusercontent.com/44870505/230749689-92e0a4dd-f59c-4b9a-8e18-c6e34e12fce1.png)
-
 # Otaku Tool
+
+![image](https://user-images.githubusercontent.com/44870505/230749689-92e0a4dd-f59c-4b9a-8e18-c6e34e12fce1.png)
 
 超 A&G の放送情報を声優もしくは番組情報から検索し、通知対象を登録します。
 
