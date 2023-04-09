@@ -25,6 +25,11 @@
 -   SendGrid
 -   Google Cloud Functions
 
+### システム構成
+
+![image](https://user-images.githubusercontent.com/44870505/230751655-be56e246-6910-4a1b-8b2d-4d9d160d6028.png)
+
+
 ## 1. PHP ライブラリの install
 
 ```
