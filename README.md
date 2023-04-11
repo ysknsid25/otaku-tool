@@ -29,7 +29,6 @@
 
 ![image](https://user-images.githubusercontent.com/44870505/230751655-be56e246-6910-4a1b-8b2d-4d9d160d6028.png)
 
-
 ## 1. PHP ライブラリの install
 
 ```
@@ -37,7 +36,7 @@ docker compose exec app bash
 ```
 
 でコンテナの中に入る。
-コンテナに入れたら、入った直後のカレントディレクトリで composer install を実行
+コンテナに入れたら、入った直後のカレントディレクトリで composer self-update を実行し、 composer install を実行
 
 ## 2. .env を設定
 
@@ -102,13 +101,14 @@ php artisan migrate:fresh --seed
 ## 8. 仕上げ
 
 ```
+npm install
 npm run build
 php artisan key:generate
 ```
 
 と入力してキーを生成後、
 
-http:127.0.0.1:8080
+http:127.0.0.1:8085
 
 より確認。
 
