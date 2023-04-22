@@ -27,7 +27,6 @@ jobs:
             DB_DATABASE: laravel_local
             DB_USERNAME: root
             DB_PASSWORD: secret
-
         steps:
             - uses: actions/checkout@v3
             - name: cache vendor
