@@ -66,3 +66,6 @@ jobs:
             - name: unit test
               run: php artisan test
               working-directory: /home/runner/work/otaku-tool/otaku-tool/framework
+            - name: Check with PHPStan
+              run: ./vendor/bin/phpstan analyse -c phpstan.neon
+              working-directory: /home/runner/work/otaku-tool/otaku-tool/framework
