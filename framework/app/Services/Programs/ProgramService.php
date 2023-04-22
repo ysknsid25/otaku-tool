@@ -13,7 +13,7 @@ class ProgramService
      * @param int $today
      * @param int $userid
      *
-     * @return Program
+     * @return array
      */
     public function getTodaysPrograms($today, $userid)
     {
@@ -55,7 +55,7 @@ class ProgramService
     /**
      * 番組情報を取得する
      *
-     * @param array $results
+     * @param mixed $results
      * @param int $userid
      * @return array
      */

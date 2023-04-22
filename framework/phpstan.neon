@@ -1,0 +1,17 @@
+includes:
+  - ./vendor/nunomaduro/larastan/extension.neon
+
+parameters:
+  level: 5
+  paths:
+    - app
+    - database
+    - resources
+    - routes
+    - tests
+  ignoreErrors:
+    -
+      message: '#Undefined variable: \$this#'
+      paths:
+        - tests
+        - routes

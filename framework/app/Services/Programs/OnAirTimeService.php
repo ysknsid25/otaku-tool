@@ -28,7 +28,7 @@ class OnAirTimeService
      * 0埋めを行う
      *
      * @param int $time
-     * @return void
+     * @return string
      */
     public function paddingZero($time)
     {
