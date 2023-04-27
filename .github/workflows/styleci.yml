@@ -14,7 +14,11 @@ jobs:
               with:
                   php-version: "8.1"
                   extensions: curl
+            - name: add remote origin
+              run: git remote add origin https://github.com/ysknsid25/otaku-tool.git
             - name: analyze code with StyleCI
               uses: ghostwriter/styleci-action@main
               with:
-                  styleci_api_key: ${{ secrets.STYLECI_API_KEY }}
+                  styleci_api_key: ${{ secrets.STYLECI_API_KEY }} # required
+                  # options: '--no-interaction --dry-run'         # optional
+                  # directory: './'                               # optional
