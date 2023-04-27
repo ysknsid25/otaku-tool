@@ -2,8 +2,8 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class ActorSeeder extends Seeder
 {
@@ -39,7 +39,7 @@ class ActorSeeder extends Seeder
                 ['id' => 23, 'name' => '悠木碧'],
                 ['id' => 24, 'name' => '石上静香'],
                 ['id' => 25, 'name' => 'Lynn'],
-                ['id' => 26, 'name' => '早見沙織']
+                ['id' => 26, 'name' => '早見沙織'],
             ]
         );
     }

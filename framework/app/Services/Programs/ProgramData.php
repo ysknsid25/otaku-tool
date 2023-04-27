@@ -2,15 +2,13 @@
 
 namespace App\Services\Programs;
 
-use App\Services\Programs\OnAirTimeService;
-
 class ProgramData
 {
     private $id = 0;
-    private $programnm = "";
+    private $programnm = '';
     private $weekday = 0;
-    private $onAirTime = "";
-    private $personalities = array();
+    private $onAirTime = '';
+    private $personalities = [];
     private $onAirTimeService = null;
     private $isNofityTarget = false;
 

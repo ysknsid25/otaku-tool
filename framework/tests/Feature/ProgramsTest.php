@@ -1,10 +1,10 @@
 <?php
 
-use App\Models\User;
-use App\Models\Program;
-use App\Models\Personality;
-use App\Models\Notifyprogram;
 use App\Models\Actor;
+use App\Models\Notifyprogram;
+use App\Models\Personality;
+use App\Models\Program;
+use App\Models\User;
 use App\Services\Programs\ProgramService;
 
 test('A&G Notify page is displayed', function () {
@@ -31,7 +31,7 @@ test('A&G Notify program is displayed', function () {
     );
     $actor = Actor::create(
         [
-            'name' => "水瀬いのり"
+            'name' => '水瀬いのり',
         ]
     );
     $personality = Personality::create(
@@ -64,12 +64,12 @@ test('A&G Notify program is displayed when search', function () {
     );
     $tyanrina = Actor::create(
         [
-            'name' => "日高里菜"
+            'name' => '日高里菜',
         ]
     );
     $kumasan = Actor::create(
         [
-            'name' => "加隈亜衣"
+            'name' => '加隈亜衣',
         ]
     );
     $personalityRina = Personality::create(
@@ -109,7 +109,7 @@ test('is Notify target registerd', function () {
     );
     $actor = Actor::create(
         [
-            'name' => "水瀬いのり"
+            'name' => '水瀬いのり',
         ]
     );
     $personality = Personality::create(
@@ -122,10 +122,10 @@ test('is Notify target registerd', function () {
         ->actingAs($user)
         ->patch('/programs', [
             'programs' => [$progarm->id],
-            'hidTargetDay' => strVal($weekDay),
+            'hidTargetDay' => strval($weekDay),
         ]);
 
-    $notifyProgram = Notifyprogram::where('programs_id', $progarm->id)->where("users_id", $user->id)->first();
+    $notifyProgram = Notifyprogram::where('programs_id', $progarm->id)->where('users_id', $user->id)->first();
     $this->assertNotNull($notifyProgram);
 });
 
@@ -143,7 +143,7 @@ test('is Notify target deleted', function () {
     );
     $actor = Actor::create(
         [
-            'name' => "水瀬いのり"
+            'name' => '水瀬いのり',
         ]
     );
     $personality = Personality::create(
@@ -156,16 +156,16 @@ test('is Notify target deleted', function () {
         ->actingAs($user)
         ->patch('/programs', [
             'programs' => [$progarm->id],
-            'hidTargetDay' => strVal($weekDay),
+            'hidTargetDay' => strval($weekDay),
         ]);
 
     $response = $this
         ->actingAs($user)
         ->patch('/programs', [
             'programs' => [],
-            'hidTargetDay' => strVal($weekDay),
+            'hidTargetDay' => strval($weekDay),
         ]);
 
-    $notifyProgram = Notifyprogram::where('programs_id', $progarm->id)->where("users_id", $user->id)->first();
+    $notifyProgram = Notifyprogram::where('programs_id', $progarm->id)->where('users_id', $user->id)->first();
     $this->assertNull($notifyProgram);
 });
