@@ -27,5 +27,5 @@ jobs:
               working-directory: /home/runner/work/otaku-tool/otaku-tool
 
             - name: Analyze Code with StyleCI
-              run: styleci
+              run: styleci analyze -h
               working-directory: /home/runner/work/otaku-tool/otaku-tool
