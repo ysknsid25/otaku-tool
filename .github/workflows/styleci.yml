@@ -15,6 +15,6 @@ jobs:
                   php-version: "8.1"
                   extensions: curl
             - name: analyze code with StyleCI
-              uses: ghostwriter/styleci-action@master
+              uses: ghostwriter/styleci-action@dev
               with:
                   styleci_api_key: ${{ secrets.STYLECI_API_KEY }}
