@@ -26,11 +26,6 @@ jobs:
                   composer require styleci/cli:^1.5 --dev
               working-directory: /home/runner/work/otaku-tool/otaku-tool
 
-            - name: Configure StyleCI CLI
-              run: |
-                  styleci config auth.github ${{ secrets.STYLECI_API_KEY }}
-              working-directory: /home/runner/work/otaku-tool/otaku-tool
-
             - name: Analyze Code with StyleCI
-              run: styleci analyze --no-interaction
+              run: styleci
               working-directory: /home/runner/work/otaku-tool/otaku-tool
