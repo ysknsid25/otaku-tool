@@ -28,3 +28,5 @@ jobs:
 
             - name: Analyze Code with StyleCI
               run: /home/runner/work/otaku-tool/otaku-tool/framework/vendor/bin/styleci analyze --dry-run
+              with:
+                  styleci_api_key: ${{ secrets.STYLECI_API_KEY }} # required
