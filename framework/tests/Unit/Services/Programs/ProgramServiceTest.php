@@ -4,7 +4,7 @@ use App\Services\Programs\ProgramService;
 
 test('get WeekDays Are Valid', function () {
     $sut = new ProgramService();
-    $exp = ["0" => "MonDay", "1" => "Tuesday", "2" => "Wednesday", "3" => "Thursday", "4" => "FriDay", "5" => "Saturday", "6" => "SunDay"];
+    $exp = ['0' => 'MonDay', '1' => 'Tuesday', '2' => 'Wednesday', '3' => 'Thursday', '4' => 'FriDay', '5' => 'Saturday', '6' => 'SunDay'];
     $act = $sut->getWeekDays();
     expect($act === $exp)->toBeTrue();
 });
