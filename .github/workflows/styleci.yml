@@ -19,4 +19,5 @@ jobs:
               with:
                   styleci_api_key: ${{ secrets.STYLECI_API_KEY }} # required
                   # options: '--no-interaction --dry-run'         # optional
-                  directory: "/home/runner/work/otaku-tool/otaku-tool"
+                  # directory: "/home/runner/work/otaku-tool/otaku-tool"
+                  working-directory: /home/runner/work/otaku-tool/otaku-tool
