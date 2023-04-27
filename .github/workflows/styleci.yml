@@ -27,4 +27,4 @@ jobs:
               working-directory: /home/runner/work/otaku-tool/otaku-tool/framework
 
             - name: Analyze Code with StyleCI
-              run: /home/runner/work/otaku-tool/otaku-tool/framework/vendor/bin/styleci analyze--dry-run
+              run: /home/runner/work/otaku-tool/otaku-tool/framework/vendor/bin/styleci analyze --dry-run
