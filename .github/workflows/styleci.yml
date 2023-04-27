@@ -19,13 +19,12 @@ jobs:
               run: |
                   curl -sS https://getcomposer.org/installer -o composer-setup.php
                   php composer-setup.php --install-dir=/usr/local/bin --filename=composer
-              working-directory: /home/runner/work/otaku-tool/otaku-tool
+              working-directory: /home/runner/work/otaku-tool/otaku-tool/framework
 
             - name: Install StyleCI CLI
               run: |
                   composer require styleci/cli:^1.5 --dev
-              working-directory: /home/runner/work/otaku-tool/otaku-tool
+              working-directory: /home/runner/work/otaku-tool/otaku-tool/framework
 
             - name: Analyze Code with StyleCI
-              run: styleci analyze -h
-              working-directory: /home/runner/work/otaku-tool/otaku-tool
+              run: /home/runner/work/otaku-tool/otaku-tool/framework/vendor/bin/styleci analyze
