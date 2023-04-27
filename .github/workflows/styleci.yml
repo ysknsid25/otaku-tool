@@ -4,20 +4,29 @@ on:
         branches:
             - release
 jobs:
-    Analyze:
+    analyze_code:
         runs-on: ubuntu-latest
         steps:
-            - name: Checkout Repo
+            - name: Checkout Repository
               uses: actions/checkout@v2
-            - name: Setup PHP
+
+            - name: Install PHP
               uses: shivammathur/setup-php@v2
               with:
                   php-version: "8.1"
-                  extensions: curl
-            - name: analyze code with StyleCI
-              uses: ghostwriter/styleci-action@main
-              with:
-                  styleci_api_key: ${{ secrets.STYLECI_API_KEY }} # required
-                  # options: '--no-interaction --dry-run'         # optional
-                  # directory: "/home/runner/work/otaku-tool/otaku-tool"
-                  working-directory: /home/runner/work/otaku-tool/otaku-tool
+
+            - name: Install Composer
+              run: |
+                  curl -sS https://getcomposer.org/installer -o composer-setup.php
+                  php composer-setup.php --install-dir=/usr/local/bin --filename=composer
+
+            - name: Install StyleCI CLI
+              run: |
+                  curl -sS https://github.styleci.io/projects/cli-installer -o installer.php
+                  php installer.php install
+              env:
+                  STYLECI_API_KEY: ${{ secrets.STYLECI_API_KEY }}
+
+            - name: Analyze Code with StyleCI
+              run: styleci analyze --no-interaction
+              working-directory: /home/runner/work/otaku-tool/otaku-tool
