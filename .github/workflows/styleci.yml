@@ -19,13 +19,17 @@ jobs:
               run: |
                   curl -sS https://getcomposer.org/installer -o composer-setup.php
                   php composer-setup.php --install-dir=/usr/local/bin --filename=composer
+              working-directory: /home/runner/work/otaku-tool/otaku-tool
 
             - name: Install StyleCI CLI
               run: |
-                  curl -sS https://github.styleci.io/projects/cli-installer -o installer.php
-                  php installer.php install
-              env:
-                  STYLECI_API_KEY: ${{ secrets.STYLECI_API_KEY }}
+                  composer require styleci/cli:^1.5 --dev
+              working-directory: /home/runner/work/otaku-tool/otaku-tool
+
+            - name: Configure StyleCI CLI
+              run: |
+                  styleci config auth.github ${{ secrets.STYLECI_API_KEY }}
+              working-directory: /home/runner/work/otaku-tool/otaku-tool
 
             - name: Analyze Code with StyleCI
               run: styleci analyze --no-interaction
