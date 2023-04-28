@@ -31,7 +31,7 @@
 
 ## 1. PHP ライブラリの install
 
-```
+```bash
 docker compose exec app bash
 ```
 
