@@ -20,7 +20,7 @@ class OnAirTimeService
         $strEndTime = $this->paddingZero($endTime);
         $strEndTime = $this->addColon($strEndTime);
 
-        $onAirTime = $strBeginTime.'-'.$strEndTime;
+        $onAirTime = $strBeginTime . '-' . $strEndTime;
 
         return $onAirTime;
     }
@@ -37,7 +37,7 @@ class OnAirTimeService
             return '';
         }
         if ($time < 1000) {
-            $time = '0'.$time;
+            $time = '0' . $time;
         }
 
         return $time;
@@ -57,6 +57,6 @@ class OnAirTimeService
         $hour = substr($time, 0, 2);
         $minute = substr($time, -2);
 
-        return $hour.':'.$minute;
+        return $hour . ':' . $minute;
     }
 }

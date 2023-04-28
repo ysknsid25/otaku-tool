@@ -36,7 +36,7 @@ class ProgramService
         //元々の通知対象として選択していたが、画面では選択されていない番組を削除する
         $programsAlreadySelected = $notifyProgramModel->userSelectedDailyProgram($userid, $targetDay);
         foreach ($programsAlreadySelected as $program) {
-            if (! in_array($program->id, $programids)) {
+            if (!in_array($program->id, $programids)) {
                 $notifyProgram = $notifyProgramModel->where('users_id', $userid)->where('programs_id', $program->id)->first();
                 $notifyProgram->delete();
             }
@@ -78,7 +78,7 @@ class ProgramService
 
             $notifyProgramModel = new Notifyprogram();
             $notifyProgram = $notifyProgramModel->where('users_id', $userid)->where('programs_id', $result->id)->first();
-            if (! is_null($notifyProgram)) {
+            if (!is_null($notifyProgram)) {
                 $program->setIsNotifyTarget(true);
             }
             $programs[] = $program;
