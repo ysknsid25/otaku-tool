@@ -27,17 +27,20 @@ jobs:
             DB_DATABASE: laravel_local
             DB_USERNAME: root
             DB_PASSWORD: secret
-
         steps:
-            - uses: actions/checkout@v2
+            - uses: actions/checkout@v3
             - name: cache vendor
               id: cache
-              uses: actions/cache@v1
+              uses: actions/cache@v3
               with:
-                  path: ./vendor
+                  path: ./framework/vendor
                   key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
                   restore-keys: |
                       ${{ runner.os }}-composer-
+            - name: composer dump-autoload
+              if: steps.cache.outputs.cache-hit == 'true'
+              run: composer dump-autoload
+              working-directory: /home/runner/work/otaku-tool/otaku-tool/framework
             - name: composer install
               if: steps.cache.outputs.cache-hit != 'true'
               run: composer install
@@ -62,4 +65,7 @@ jobs:
               working-directory: /home/runner/work/otaku-tool/otaku-tool/framework
             - name: unit test
               run: php artisan test
+              working-directory: /home/runner/work/otaku-tool/otaku-tool/framework
+            - name: Check with PHPStan
+              run: ./vendor/bin/phpstan analyse -c phpstan.neon
               working-directory: /home/runner/work/otaku-tool/otaku-tool/framework
