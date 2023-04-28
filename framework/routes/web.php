@@ -2,7 +2,6 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProgramController;
-use App\Models\Program;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -36,4 +35,4 @@ Route::middleware('auth')->group(function () {
     Route::patch('/programs', [ProgramController::class, 'update'])->name('programs.update');
 });
 
-require __DIR__ . '/auth.php';
+require __DIR__.'/auth.php';
