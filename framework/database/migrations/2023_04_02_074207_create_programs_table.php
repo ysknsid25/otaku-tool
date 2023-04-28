@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('programs', function (Blueprint $table) {
             $table->id();
-            $table->string("programnm", 256)->default("");
+            $table->string('programnm', 256)->default('');
             $table->integer('begintime')->nullable();
             $table->integer('endtime')->nullable();
             $table->integer('weekday')->default(0);
