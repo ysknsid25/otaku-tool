@@ -50,7 +50,6 @@ class User extends Authenticatable implements MustVerifyEmail
     /**
      * Interact with the user's first name.
      *
-     * @param  string  $value
      * @return \Illuminate\Database\Eloquent\Casts\Attribute
      */
     protected function google2faSecret(): Attribute
