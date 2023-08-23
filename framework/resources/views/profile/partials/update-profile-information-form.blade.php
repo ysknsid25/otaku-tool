@@ -50,6 +50,16 @@
             @endif
         </div>
 
+        <!-- is Enable Google2fa -->
+        <div>
+            <label for="is_enable_google2fa" class="inline-flex items-center">
+                <input id="is_enable_google2fa" type="checkbox"
+                    class="rounded border-gray-300 text-indigo-600 shadow-sm focus:ring-indigo-500"
+                    name="is_enable_google2fa" value="1" {{ $user->is_enable_google2fa ? 'checked' : '' }}>
+                <span class="ml-2 text-sm text-gray-600">{{ __('Enable Google 2fa') }}</span>
+            </label>
+        </div>
+
         <div class="flex items-center gap-4">
             <x-primary-button>{{ __('Save') }}</x-primary-button>
 

@@ -19,9 +19,17 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+Route::middleware(['auth', 'verified', 'google2fa'])->group(function () {
+    Route::get('/dashboard', function () {
+        return view('dashboard');
+    })->name('dashboard');
+    Route::get('/2fa', function () {
+        return redirect(route('dashboard'));
+    })->name('2fa');
+    Route::post('/2fa', function () {
+        return redirect(route('dashboard'));
+    })->name('2fa');
+});
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -35,4 +43,4 @@ Route::middleware('auth')->group(function () {
     Route::patch('/programs', [ProgramController::class, 'update'])->name('programs.update');
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
