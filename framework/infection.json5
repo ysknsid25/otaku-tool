@@ -1,0 +1,13 @@
+{
+    $schema: "vendor/infection/infection/resources/schema.json",
+    source: {
+        directories: ["app"],
+    },
+    logs: {
+        html: "report/mutation/infection.html",
+    },
+    mutators: {
+        "@default": true,
+    },
+    testFramework: "pest",
+}
