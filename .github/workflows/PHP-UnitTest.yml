@@ -67,9 +67,7 @@ jobs:
               run: php artisan test
               working-directory: /home/runner/work/otaku-tool/otaku-tool/framework
             - name: mutation test
-              run: |
-                  git fetch --depth=1 origin $GITHUB_BASE_REF
-                  ./vendor/bin/infection --git-diff-lines
+              run: ./vendor/bin/infection --threads=8
               working-directory: /home/runner/work/otaku-tool/otaku-tool/framework
             - name: Check with PHPStan
               run: ./vendor/bin/phpstan analyse -c phpstan.neon
