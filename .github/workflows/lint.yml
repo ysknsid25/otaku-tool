@@ -5,7 +5,7 @@ on:
 
 jobs:
     lint:
-        name: phpunit test
+        name: hadlint
         runs-on: ubuntu-latest
 
         steps:
